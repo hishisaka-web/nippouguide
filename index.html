@@ -1,0 +1,1315 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>日報テンプレートガイド</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --bg:#F3F5F2;
+    --surface:#FFFFFF;
+    --surface-2:#EAF1EE;
+    --ink:#17231F;
+    --ink-soft:#4B5B55;
+    --border:#C9D3CC;
+    --accent:#0B6E5A;
+    --accent-ink:#FFFFFF;
+    --accent-soft:#DCEEE8;
+    --warn:#C96A1F;
+    --warn-soft:#FBE8D3;
+    --warn-ink:#5C3313;
+    --shadow:rgba(23,35,31,0.10);
+    --mono-tint:#EAF1EE;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#10201B;
+      --surface:#16281F;
+      --surface-2:#123028;
+      --ink:#E7EEEA;
+      --ink-soft:#A9BDB4;
+      --border:#2C4038;
+      --accent:#3FCBA6;
+      --accent-ink:#06251E;
+      --accent-soft:#163A30;
+      --warn:#F2A360;
+      --warn-soft:#3A2A17;
+      --warn-ink:#FBD9B0;
+      --shadow:rgba(0,0,0,0.45);
+      --mono-tint:#123028;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#10201B;
+    --surface:#16281F;
+    --surface-2:#123028;
+    --ink:#E7EEEA;
+    --ink-soft:#A9BDB4;
+    --border:#2C4038;
+    --accent:#3FCBA6;
+    --accent-ink:#06251E;
+    --accent-soft:#163A30;
+    --warn:#F2A360;
+    --warn-soft:#3A2A17;
+    --warn-ink:#FBD9B0;
+    --shadow:rgba(0,0,0,0.45);
+    --mono-tint:#123028;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:"Zen Maru Gothic","Noto Sans JP",sans-serif;
+    text-wrap:balance;
+    margin:0;
+  }
+  .wrap{
+    max-width:820px;
+    margin:0 auto;
+    padding-inline:20px;
+  }
+
+  /* ---- Header ---- */
+  header.top{
+    padding-block:28px 20px;
+    border-bottom:1px solid var(--border);
+    background:var(--surface);
+  }
+  .eyebrow{
+    font-size:13px;
+    font-weight:700;
+    color:var(--accent);
+    letter-spacing:.08em;
+  }
+  h1.title{
+    font-size:clamp(24px,5vw,32px);
+    font-weight:700;
+    margin-top:6px;
+  }
+  .subtitle{
+    color:var(--ink-soft);
+    font-size:14.5px;
+    margin-top:8px;
+  }
+
+  /* ---- Sticky nav ---- */
+  nav.tabs{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:var(--bg);
+    border-bottom:1px solid var(--border);
+    padding-block:10px;
+  }
+  .tabs-inner{
+    max-width:820px;
+    margin:0 auto;
+    padding-inline:20px;
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .tabs-inner::-webkit-scrollbar{display:none;}
+  .tab-btn{
+    flex:0 0 auto;
+    font-family:"Noto Sans JP",sans-serif;
+    font-size:14px;
+    font-weight:700;
+    color:var(--ink-soft);
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:999px;
+    padding:10px 16px;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:background .15s,color .15s,border-color .15s;
+  }
+  .tab-btn:hover{border-color:var(--accent);}
+  .tab-btn.active{
+    background:var(--accent);
+    color:var(--accent-ink);
+    border-color:var(--accent);
+  }
+
+  /* ---- Sections ---- */
+  section.block{
+    padding-block:40px;
+    border-bottom:1px solid var(--border);
+    scroll-margin-top:70px;
+  }
+  section.block:last-of-type{border-bottom:none;}
+  .step-no{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:34px;height:34px;
+    border-radius:10px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    font-family:"Zen Maru Gothic",sans-serif;
+    font-weight:700;
+    font-size:16px;
+    flex:0 0 auto;
+  }
+  .section-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:16px;
+  }
+  h2.section-title{
+    font-size:clamp(19px,3.6vw,23px);
+    font-weight:700;
+  }
+  .lead{
+    color:var(--ink-soft);
+    font-size:15px;
+    margin-bottom:18px;
+  }
+  .lead + .lead{margin-top:-10px;}
+
+  /* ---- Cards ---- */
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:20px;
+    box-shadow:0 2px 10px var(--shadow);
+  }
+  .card + .card{margin-top:16px;}
+  .card-label{
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--ink-soft);
+    letter-spacing:.04em;
+    margin-bottom:10px;
+  }
+
+  /* ---- Template block ---- */
+  .tmpl{
+    position:relative;
+    background:var(--mono-tint);
+    border:1px dashed var(--border);
+    border-radius:12px;
+    padding:16px 100px 16px 16px;
+  }
+  .tmpl pre{
+    margin:0;
+    font-family:"Noto Sans JP",sans-serif;
+    font-size:14.5px;
+    letter-spacing:.02em;
+    white-space:pre-wrap;
+    word-break:break-word;
+    color:var(--ink);
+  }
+  .copy-btn{
+    position:absolute;
+    top:12px;
+    right:12px;
+    font-family:"Noto Sans JP",sans-serif;
+    font-size:13.5px;
+    font-weight:700;
+    color:var(--accent-ink);
+    background:var(--accent);
+    border:none;
+    border-radius:9px;
+    padding:9px 14px;
+    cursor:pointer;
+    min-height:40px;
+    transition:opacity .15s, transform .1s;
+  }
+  .copy-btn:active{transform:scale(.96);}
+  .copy-btn.copied{background:#3C8F5C;}
+  .copy-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  /* worked example */
+  .example-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 18px;
+    font-size:14px;
+    color:var(--ink-soft);
+    margin-bottom:12px;
+  }
+  .example-meta b{color:var(--ink);}
+  .pt-total{
+    display:inline-flex;
+    align-items:baseline;
+    gap:6px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    font-weight:700;
+    border-radius:10px;
+    padding:8px 14px;
+    margin-top:14px;
+    font-size:15px;
+  }
+  .pt-total .num{font-size:19px;font-variant-numeric:tabular-nums;}
+
+  /* callout */
+  .callout{
+    background:var(--warn-soft);
+    border:1px solid var(--warn);
+    border-radius:12px;
+    padding:14px 16px;
+    font-size:14px;
+    color:var(--warn-ink);
+    margin-top:14px;
+  }
+  .callout b{font-weight:700;}
+
+  /* ---- Search / product list ---- */
+  .search-wrap{
+    position:relative;
+    margin-bottom:14px;
+  }
+  #search{
+    width:100%;
+    font-family:"Noto Sans JP",sans-serif;
+    font-size:16px;
+    padding:14px 44px 14px 16px;
+    border-radius:12px;
+    border:1.5px solid var(--border);
+    background:var(--surface);
+    color:var(--ink);
+    min-height:50px;
+  }
+  #search:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  .search-count{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-bottom:14px;
+  }
+  .search-count b{color:var(--accent);font-variant-numeric:tabular-nums;}
+
+  .product-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .product-row{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .product-row.hidden{display:none;}
+  .product-row-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    background:none;
+    border:none;
+    text-align:left;
+    padding:14px 16px;
+    cursor:pointer;
+    font-family:"Noto Sans JP",sans-serif;
+    color:var(--ink);
+  }
+  .product-name{
+    flex:1 1 auto;
+    font-size:15px;
+    font-weight:500;
+  }
+  .chip{
+    flex:0 0 auto;
+    font-size:12px;
+    font-weight:700;
+    padding:4px 9px;
+    border-radius:999px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    font-variant-numeric:tabular-nums;
+  }
+  .chip.warn{background:var(--warn-soft);color:var(--warn-ink);}
+  .chevron{
+    flex:0 0 auto;
+    color:var(--ink-soft);
+    transition:transform .15s;
+    font-size:14px;
+  }
+  .product-row.open .chevron{transform:rotate(180deg);}
+  .product-row-body{
+    display:none;
+    padding:0 16px 16px;
+  }
+  .product-row.open .product-row-body{display:block;}
+  .product-row .tmpl{padding-right:100px;}
+
+  .empty-state{
+    text-align:center;
+    color:var(--ink-soft);
+    padding:32px 12px;
+    font-size:14.5px;
+  }
+
+  footer.foot{
+    text-align:center;
+    padding:28px 20px 40px;
+    color:var(--ink-soft);
+    font-size:12.5px;
+  }
+
+  @media (max-width:480px){
+    .tmpl{padding-right:16px;}
+    .copy-btn{
+      position:static;
+      display:block;
+      width:100%;
+      margin-top:12px;
+    }
+    .product-row .tmpl{padding-right:16px;}
+  }
+
+  /* ---- Admin edit mode ---- */
+  .search-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:14px;
+  }
+  .edit-toggle{
+    flex:0 0 auto;
+    font-family:"Noto Sans JP",sans-serif;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    background:none;
+    border:1px solid var(--border);
+    border-radius:999px;
+    padding:6px 12px;
+    cursor:pointer;
+  }
+  .edit-toggle:hover{border-color:var(--accent);color:var(--accent);}
+  .edit-toggle.active{
+    background:var(--accent-soft);
+    color:var(--accent);
+    border-color:var(--accent);
+  }
+  .admin-banner{
+    display:none;
+    background:var(--accent-soft);
+    color:var(--accent);
+    border-radius:12px;
+    padding:12px 16px;
+    font-size:13.5px;
+    margin-bottom:14px;
+  }
+  body.edit-mode .admin-banner{display:block;}
+  .admin-banner.error{
+    background:var(--warn-soft);
+    color:var(--warn-ink);
+  }
+  .add-panel{
+    display:none;
+    margin-bottom:14px;
+  }
+  body.edit-mode .add-panel{display:block;}
+  .field-row{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-bottom:12px;
+  }
+  .field-row label{
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--ink-soft);
+  }
+  .field-row input[type="text"],
+  .field-row input[type="number"]{
+    font-family:"Noto Sans JP",sans-serif;
+    font-size:15px;
+    padding:10px 12px;
+    border-radius:10px;
+    border:1.5px solid var(--border);
+    background:var(--bg);
+    color:var(--ink);
+    min-height:44px;
+    width:100%;
+  }
+  .field-row input[type="text"]:focus,
+  .field-row input[type="number"]:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  .field-checkbox{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+  }
+  .field-checkbox input{width:18px;height:18px;}
+  .form-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:"Noto Sans JP",sans-serif;
+    font-size:13.5px;
+    font-weight:700;
+    border-radius:9px;
+    padding:9px 16px;
+    min-height:40px;
+    cursor:pointer;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--ink);
+  }
+  .btn-primary{
+    background:var(--accent);
+    color:var(--accent-ink);
+    border-color:var(--accent);
+  }
+  .btn-danger{
+    background:var(--surface);
+    color:var(--warn);
+    border-color:var(--warn);
+  }
+  .btn[disabled]{opacity:.55;cursor:default;}
+  input[type="text"][disabled],input[type="checkbox"][disabled]{opacity:.5;cursor:not-allowed;}
+  .check-toggle:has(input[disabled]){cursor:not-allowed;color:var(--ink-soft);}
+
+  /* ---- Report builder ---- */
+  .builder-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+  .date-today-btn{
+    margin-top:6px;
+    font-family:"Noto Sans JP",sans-serif;
+    font-size:12px;
+    font-weight:700;
+    color:var(--accent);
+    background:none;
+    border:none;
+    padding:0;
+    cursor:pointer;
+    text-align:left;
+  }
+  .check-toggle{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:14px;
+    color:var(--ink);
+    cursor:pointer;
+  }
+  .check-toggle input{width:18px;height:18px;flex:0 0 auto;}
+  #b-picker-wrap[hidden]{display:none;}
+  #search-head[hidden]{display:none;}
+  #b-total-pill[hidden]{display:none;}
+  .block-card{margin-top:14px;}
+  .block-card-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:10px;
+  }
+  .block-card-head .product-name{font-size:15px;font-weight:700;}
+  .block-remove{
+    flex:0 0 auto;
+    background:none;
+    border:1px solid var(--border);
+    border-radius:8px;
+    color:var(--ink-soft);
+    font-size:14px;
+    width:32px;height:32px;
+    cursor:pointer;
+  }
+  .block-remove:hover{border-color:var(--warn);color:var(--warn);}
+  .other-toggle{
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+    font-size:13px;
+    color:var(--ink-soft);
+    cursor:pointer;
+    margin-bottom:4px;
+  }
+  .other-toggle input{width:18px;height:18px;flex:0 0 auto;margin-top:1px;}
+  .builder-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(140px,1fr));
+    gap:10px 14px;
+    margin-top:10px;
+  }
+  .block-pt{
+    margin-top:12px;
+    font-size:14.5px;
+    font-weight:700;
+    color:var(--accent);
+    font-variant-numeric:tabular-nums;
+  }
+  .builder-error{
+    color:var(--warn-ink);
+    font-size:13px;
+    margin:8px 0 0;
+  }
+  .builder-warn{
+    color:var(--warn-ink);
+    font-size:13px;
+    margin:10px 0 0;
+  }
+  .product-actions{
+    display:none;
+    gap:8px;
+    padding:0 16px 14px;
+  }
+  body.edit-mode .product-actions{display:flex;}
+  .edit-form{
+    display:none;
+    padding:0 16px 16px;
+    border-top:1px dashed var(--border);
+    margin-top:2px;
+    padding-top:14px;
+  }
+  .edit-form.open{display:block;}
+  .confirm-delete{
+    display:none;
+    align-items:center;
+    gap:10px;
+    padding:0 16px 14px;
+    font-size:13px;
+    color:var(--warn-ink);
+  }
+  .confirm-delete.open{display:flex;}
+</style>
+
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">Bespra Solutions・OP向け</div>
+    <h1 class="title">日報テンプレートガイド</h1>
+    <p class="subtitle">日報はこのページの通りにコピー＆ペーストするだけでOKです。数字を入れる場所だけ確認してください。</p>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <div class="tabs-inner">
+    <button class="tab-btn" data-target="sec-overall">① 日報の書き方</button>
+    <button class="tab-btn" data-target="sec-builder">② 日報作成ツール</button>
+    <button class="tab-btn" data-target="sec-search">③ 商材別テンプレート</button>
+    <button class="tab-btn" data-target="sec-other">④ 他の商材の契約</button>
+    <button class="tab-btn" data-target="sec-backyard">⑤ バックヤード業務</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section class="block" id="sec-overall">
+    <div class="section-head">
+      <span class="step-no">1</span>
+      <h2 class="section-title">日報全体の書き方</h2>
+    </div>
+    <p class="lead">毎日この形でチャットに送信してください。まずは全体の形を確認しましょう。</p>
+
+    <div class="card">
+      <div class="card-label">基本の形</div>
+      <div class="tmpl">
+        <pre id="tmpl-overall">【日報】
+OP名：（あなたの氏名）
+日付：（例：9月10日（水））
+----------------------
+（ここから下に、その日に架電した商材の分だけ「②商材別テンプレート」をコピーして数字を埋める）
+----------------------
+合計Pt：（その日の合計）</pre>
+        <button class="copy-btn" data-copy-target="tmpl-overall">コピー</button>
+      </div>
+    </div>
+
+    <p class="lead" style="margin-top:26px;">実際の記入例（立山さんの日報より）</p>
+    <div class="card">
+      <div class="example-meta">
+        <span>OP名：<b>立山　太郎</b></span>
+        <span>日付：<b>9月14日（月）</b></span>
+      </div>
+      <div class="tmpl">
+        <pre id="tmpl-example">【日報】
+OP名：立山　太郎
+日付：9月14日（月）
+----------------------
+架電リスト：きざみ本薬湯（初回オファー）
+コール数：200
+コンタクト数：100
+契約数（0.6）：1
+契約数（0.8）：2
+Pt数：2.2
+----------------------
+架電リスト：Pitsole（カゴ落ち）
+コール数：100
+コンタクト数：20
+契約数（0.2）：1
+契約数（0.6）：10
+Pt数：6.2
+----------------------
+架電リスト：爽軽青汁（カゴ落ち）
+コール数：300
+コンタクト数：100
+契約数（0.4）：0
+契約数（0.8）：5
+Pt数：4
+----------------------
+合計Pt：12.4</pre>
+        <button class="copy-btn" data-copy-target="tmpl-example">コピー</button>
+      </div>
+      <div class="pt-total">合計Pt = 2.2 + 6.2 + 4 &nbsp;=&nbsp; <span class="num">12.4</span></div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="card-label">記入のルール</div>
+      <p style="margin:0 0 10px;font-size:14.5px;">架電した商材の分だけ、②のテンプレートをコピーして貼り付け、コール数・コンタクト数・契約数（該当するPt値の欄に件数）・Pt数を埋めてください。契約が0件の項目は「契約数：0」とだけ記載してください。</p>
+      <div class="callout">
+        <b>もし「契約数（要確認）」という表示が出たら…</b><br>
+        架電している商材が万が一「契約数（要確認）」となっておりましたら、社員までご報告をよろしくお願いいたします。
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="sec-builder">
+    <div class="section-head">
+      <span class="step-no">2</span>
+      <h2 class="section-title">日報を自動で作成する</h2>
+    </div>
+    <p class="lead">架電した商材を選んでコール数・コンタクト数・契約数を入力するだけで、Pt数と合計Ptが自動で計算されます。<b>その日に複数の商材に架電した場合は、下の「架電した商材を追加」で商材を選んで「追加」を押す操作を、架電した商材の数だけ繰り返してください。</b>商材ごとにカードが下に追加されていきます。すべて入力し終えたら、一番下の「できあがった日報」をコピーして送信してください。日付は今日の日付が自動で入りますが、必要なら書き換えられます。</p>
+
+    <div class="card">
+      <div class="card-label">OP名・日付</div>
+      <div class="builder-row">
+        <div class="field-row" style="flex:1 1 200px;">
+          <label for="b-opname">OP名</label>
+          <input type="text" id="b-opname" placeholder="例：立山　太郎" autocomplete="off">
+        </div>
+        <div class="field-row" style="flex:1 1 200px;">
+          <label for="b-date">日付</label>
+          <input type="text" id="b-date" autocomplete="off">
+          <button type="button" id="b-date-today" class="date-today-btn">今日の日付にする</button>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:14px;">
+        <b>OP名の書き方について</b><br>
+        OP名は「かけ先リスト」に記載されている表記のとおりに記入してください。表記がバラバラになると、集計のときにどなたの日報か判断できなくなってしまいます。
+        <div style="margin-top:8px;"><a href="https://docs.google.com/spreadsheets/d/1SmQ3f0B8jvRAH9ZI7TJWioHCg6fUX-sl3uFSPtbca3U/edit?gid=434128647#gid=434128647" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;">かけ先リストを開く</a></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px;">
+      <label class="check-toggle">
+        <input type="checkbox" id="b-backyard" disabled>
+        <span>この日はバックヤード業務のみ（架電なし）</span>
+      </label>
+      <p class="builder-error" id="b-backyard-gate" style="margin:8px 0 0;">先にOP名を入力してください。</p>
+    </div>
+
+    <div id="b-picker-wrap">
+      <div class="card" style="margin-top:14px;">
+        <div class="card-label">架電した商材を追加</div>
+        <p class="builder-error" id="b-product-gate" style="margin:0 0 12px;">先にOP名を入力してください。OP名を入力すると、商材を選べるようになります。</p>
+        <p style="margin:0 0 12px;font-size:13.5px;color:var(--ink-soft);" id="b-product-hint" hidden>1つの商材を選んで「追加」を押すと、下にその商材の入力カードが増えます。<b>複数の商材に架電した日は、この操作を商材の数だけ繰り返してください。</b></p>
+        <div class="builder-row">
+          <div class="field-row" style="flex:1 1 240px;">
+            <label for="b-product-input">商材名</label>
+            <input type="text" id="b-product-input" list="b-product-options" placeholder="商材名を入力・選択" autocomplete="off" disabled>
+            <datalist id="b-product-options"></datalist>
+          </div>
+          <div class="form-actions" style="align-self:flex-end;">
+            <button type="button" class="btn btn-primary" id="b-add-block" disabled>＋ 追加</button>
+          </div>
+        </div>
+        <p class="builder-error" id="b-add-error" hidden>一覧にある商材名を選択してください。</p>
+        <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink-soft);" id="b-block-count" hidden></p>
+      </div>
+
+      <div id="b-blocks"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px;" id="b-output-card" hidden>
+      <div class="card-label">できあがった日報</div>
+      <div class="tmpl">
+        <pre id="b-output"></pre>
+        <button class="copy-btn" data-copy-target="b-output">コピー</button>
+      </div>
+      <div class="pt-total" id="b-total-pill" hidden>合計Pt = <span class="num" id="b-total-num">0</span></div>
+      <p class="builder-warn" id="b-warn" hidden></p>
+    </div>
+  </section>
+
+  <section class="block" id="sec-search">
+    <div class="section-head">
+      <span class="step-no">3</span>
+      <h2 class="section-title">商材別テンプレートを探す</h2>
+    </div>
+    <p class="lead">架電した商材名を下の検索ボックスに入力すると、該当するテンプレートがすぐに見つかります。商材名をタップするとテンプレートが開き、「コピー」ボタンで日報にそのまま貼り付けられます。</p>
+
+    <div class="callout">
+      <b>基本的には②の「日報を自動で作成する」をご利用ください。</b><br>
+      ②では契約数を入力するだけでPt数・合計Ptが自動計算されます。こちらの検索は、テンプレートの文言や契約Pt値だけをさっと確認したいときにお使いください。
+    </div>
+
+    <div class="search-wrap">
+      <input id="search" type="text" placeholder="商材名で検索（例：きざみ本薬湯）" autocomplete="off">
+    </div>
+
+    <div class="empty-state" id="search-hint">商材名を入力すると、該当するテンプレートが表示されます。</div>
+
+    <div class="search-head" id="search-head" hidden>
+      <div class="search-count" style="margin:0;"><b id="count-num">400</b> / <span id="total-num">400</span> 商材を表示中</div>
+    </div>
+
+    <div class="product-list" id="product-list"></div>
+    <div class="empty-state" id="empty-state" style="display:none;">該当する商材が見つかりませんでした。商材名の一部だけでも入力してみてください。</div>
+
+  </section>
+
+  <section class="block" id="sec-other">
+    <div class="section-head">
+      <span class="step-no">4</span>
+      <h2 class="section-title">他の商材の契約になった場合</h2>
+    </div>
+    <p class="lead">架電していたリストとは<b>別の商材</b>の契約になることがあります。<br>
+    （例：ヒアロエイド（カゴ落ち）リストで架電中に、リッドキララ（カゴ落ち）の契約になった場合）</p>
+    <p class="lead">このような場合は、通常の商材別ブロックとは別に、以下の専用テンプレートを追加してください。</p>
+
+    <div class="callout">
+      <b>この専用テンプレートには「コール数：」「コンタクト数：」は書きません。</b><br>
+      書いてしまうと通常の商材別ブロックとして扱われてしまいます。契約になった商材名を「架電リスト：」に、契約数・Pt数はいつも通り記入してください。この契約数・Pt数は集計に反映されますが、架電リスト欄には表示されません（実際に架電したリストではないため）。<br>
+      日報全体の「合計Pt：」にもこのPt数を忘れずに含めてください。
+    </div>
+
+    <p class="lead" style="margin-top:22px;">専用テンプレートの形</p>
+    <div class="card">
+      <div class="card-label">他の商材の契約になった場合のテンプレート</div>
+      <div class="tmpl">
+        <pre id="tmpl-other">架電リスト：（実際に契約になった商材名）
+契約数（Pt値）：
+Pt数：
+----------------------</pre>
+        <button class="copy-btn" data-copy-target="tmpl-other">コピー</button>
+      </div>
+    </div>
+
+    <p class="lead" style="margin-top:22px;">記入例（ヒアロエイド（カゴ落ち）リストでリッドキララ（カゴ落ち）を契約した場合）</p>
+    <div class="card">
+      <div class="example-meta">
+        <span>本来の架電リスト：<b>ヒアロエイド（カゴ落ち）</b></span>
+        <span>実際の契約：<b>リッドキララ（カゴ落ち）</b></span>
+      </div>
+      <div class="tmpl">
+        <pre id="tmpl-other-example">架電リスト：ヒアロエイド（カゴ落ち）
+コール数：150
+コンタクト数：60
+契約数（0.8）：0
+Pt数：0
+----------------------
+架電リスト：リッドキララ（カゴ落ち）
+契約数（0.8）：1
+Pt数：0.8
+----------------------
+合計Pt：（他のブロックの合計）＋0.8</pre>
+        <button class="copy-btn" data-copy-target="tmpl-other-example">コピー</button>
+      </div>
+      <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-soft);">上のヒアロエイド（カゴ落ち）ブロックは通常通りコール数・コンタクト数を記入し、リッドキララ（カゴ落ち）は下に専用テンプレートとして追加します。架電リストの一覧にはリッドキララは表示されず、Ptだけが合計に反映されます。</p>
+    </div>
+
+    <p class="lead" style="margin-top:22px;">日報まるごとの記入例（立山さんの日報より）</p>
+    <div class="card">
+      <div class="example-meta">
+        <span>OP名：<b>立山　太郎</b></span>
+        <span>日付：<b>9月16日（水）</b></span>
+      </div>
+      <p style="margin:0 0 14px;font-size:13.5px;color:var(--ink-soft);">この日は<b>リッドキララ（カゴ落ち）</b>を架電中に、<b>ヒアロエイド（カゴ落ち）</b>の契約になりました。ヒアロエイドはコール数・コンタクト数を書かず、いちばん下に専用テンプレートとして追加しています。</p>
+      <div class="tmpl">
+        <pre id="tmpl-other-full">【日報】
+OP名：立山　太郎
+日付：9月16日（水）
+----------------------
+架電リスト：きざみ本薬湯（初回オファー）
+コール数：200
+コンタクト数：100
+契約数（0.6）：1
+契約数（0.8）：2
+Pt数：2.2
+----------------------
+架電リスト：Pitsole（カゴ落ち）
+コール数：100
+コンタクト数：20
+契約数（0.2）：1
+契約数（0.6）：10
+Pt数：6.2
+----------------------
+架電リスト：リッドキララ（カゴ落ち）
+コール数：300
+コンタクト数：100
+契約数（0.8）：5
+Pt数：4
+----------------------
+架電リスト：ヒアロエイド（カゴ落ち）
+契約数（0.8）：1
+Pt数：0.8
+----------------------
+合計Pt：13.2</pre>
+        <button class="copy-btn" data-copy-target="tmpl-other-full">コピー</button>
+      </div>
+      <div class="pt-total">合計Pt = 2.2 + 6.2 + 4 + 0.8 &nbsp;=&nbsp; <span class="num">13.2</span></div>
+    </div>
+  </section>
+
+  <section class="block" id="sec-backyard">
+    <div class="section-head">
+      <span class="step-no">5</span>
+      <h2 class="section-title">架電を行わなかった日（バックヤード業務）</h2>
+    </div>
+    <p class="lead">その日、架電業務を行わずバックヤード業務のみだった場合は、以下をそのままコピーして、OP名・日付だけ書き換えて送信してください（他の項目は書きません）。</p>
+
+    <div class="card">
+      <div class="card-label">バックヤード業務の日のテンプレート</div>
+      <div class="tmpl">
+        <pre id="tmpl-backyard">【日報】
+OP名：（あなたの氏名）
+日付：（例：9月14日（月））
+----------------------
+バックヤード業務
+----------------------</pre>
+        <button class="copy-btn" data-copy-target="tmpl-backyard">コピー</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  日報テンプレートガイド &middot; Bespra Solutions<br>
+  わからないことがあれば、遠慮なく社員にご確認ください。
+</footer>
+
+<script id="products-data" type="application/json">[{"product": "VI-DA（休眠）", "tiers": ["要確認"], "template": "架電リスト：VI-DA（休眠）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ダブルバスター（休眠）", "tiers": ["要確認"], "template": "架電リスト：ダブルバスター（休眠）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "きざみ本薬湯（初回オファー）", "tiers": ["0.6", "0.8"], "template": "架電リスト：きざみ本薬湯（初回オファー）\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ブレスマイルサプリ（初回オファー）", "tiers": ["0.6"], "template": "架電リスト：ブレスマイルサプリ（初回オファー）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "Oigurt（アップセル）", "tiers": ["0.4"], "template": "架電リスト：Oigurt（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Pitsole（アップセル）", "tiers": ["0.6"], "template": "架電リスト：Pitsole（アップセル）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "蓬緑（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：蓬緑（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "Oi gurt（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：Oi gurt（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Pitsole（カゴ落ち）", "tiers": ["0.2", "0.6"], "template": "架電リスト：Pitsole（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.2）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ベルタ保険", "tiers": ["0.6", "0.8"], "template": "架電リスト：ベルタ保険\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "Oigurt②（アップセル）", "tiers": ["0.4"], "template": "架電リスト：Oigurt②（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "養宝珠（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：養宝珠（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "チャップサプリ（初回オファー）", "tiers": ["要確認"], "template": "架電リスト：チャップサプリ（初回オファー）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "電子タバコSPADE（アップセル）", "tiers": ["要確認"], "template": "架電リスト：電子タバコSPADE（アップセル）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "プレミアム酵素茶漬け（アップセル）", "tiers": ["要確認"], "template": "架電リスト：プレミアム酵素茶漬け（アップセル）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "アイムピンチ美容液（初回オファー）", "tiers": ["要確認"], "template": "架電リスト：アイムピンチ美容液（初回オファー）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "シボルネ（アップセル）", "tiers": ["0.4"], "template": "架電リスト：シボルネ（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "CAX（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：CAX（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "JOOMO（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：JOOMO（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "プレミアム酵素茶漬け（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：プレミアム酵素茶漬け（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "エクソソーム（初回オファー）", "tiers": ["0.6"], "template": "架電リスト：エクソソーム（初回オファー）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ビーバウンシー（カゴ落ち）", "tiers": ["0.8"], "template": "架電リスト：ビーバウンシー（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ビーバウンシー（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ビーバウンシー（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "KAMIKA（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：KAMIKA（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ハリシャインファンデ（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：ハリシャインファンデ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "リセラン（初回オファー）", "tiers": ["要確認"], "template": "架電リスト：リセラン（初回オファー）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "モモフルプラス（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：モモフルプラス（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ハリシャインファンデ（アップセル）", "tiers": ["要確認"], "template": "架電リスト：ハリシャインファンデ（アップセル）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "白雪若肌クリーム（アップセル）", "tiers": ["要確認"], "template": "架電リスト：白雪若肌クリーム（アップセル）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ユリイロ（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：ユリイロ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ウェルネスココアグレイセル（アップセル）", "tiers": ["要確認"], "template": "架電リスト：ウェルネスココアグレイセル（アップセル）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "P3（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：P3（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "白雪若肌クリーム（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：白雪若肌クリーム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "M.C.Butter（アップセル）", "tiers": ["0.4"], "template": "架電リスト：M.C.Butter（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "クリアストロングショット（アップセル）", "tiers": ["0.6"], "template": "架電リスト：クリアストロングショット（アップセル）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "シボルネ（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：シボルネ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "バルクオム（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：バルクオム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "\"REDEN（1,980円）\"", "tiers": ["要確認"], "template": "架電リスト：\"REDEN（1,980円）\"\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ラシックユー（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：ラシックユー（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "23zi（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：23zi（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ナノシヴ（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：ナノシヴ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "プルーストクリーム（初回オファー）", "tiers": ["要確認"], "template": "架電リスト：プルーストクリーム（初回オファー）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "TALLMAN", "tiers": ["0.6"], "template": "架電リスト：TALLMAN\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ESTHクレンジング（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ESTHクレンジング（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "エメリルシャンプー（休眠）", "tiers": ["0.8"], "template": "架電リスト：エメリルシャンプー（休眠）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ルーフェン（消耗品）", "tiers": ["0.6"], "template": "架電リスト：ルーフェン（消耗品）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ヴェルスト（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：ヴェルスト（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ウェルネスココアグレイセル（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：ウェルネスココアグレイセル（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ロザブルーナイトブラ（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：ロザブルーナイトブラ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "キュリエットブラトップ（カゴ落ち）", "tiers": ["0.4", "0.6"], "template": "架電リスト：キュリエットブラトップ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "養宝珠（アップセル）", "tiers": ["0.4"], "template": "架電リスト：養宝珠（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ユリイロ（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ユリイロ（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "REDEN（980円）", "tiers": ["要確認"], "template": "架電リスト：REDEN（980円）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ハダメキクリーム（休眠）", "tiers": ["0.8"], "template": "架電リスト：ハダメキクリーム（休眠）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "蓬緑（休眠）", "tiers": ["0.8"], "template": "架電リスト：蓬緑（休眠）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "オフリカケ（初回オファー）", "tiers": ["0.6"], "template": "架電リスト：オフリカケ（初回オファー）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "SHINPI（買い切り）", "tiers": ["要確認"], "template": "架電リスト：SHINPI（買い切り）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "M.C.Butter（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：M.C.Butter（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "オンラインダイエット面談", "tiers": ["0.8", "1.0"], "template": "架電リスト：オンラインダイエット面談\nコール数：\nコンタクト数：\n契約数（0.8）：\n契約数（1.0）：\nPt数：\n----------------------"}, {"product": "ESTHクレンジング（カゴ落ち）", "tiers": ["0.8"], "template": "架電リスト：ESTHクレンジング（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ヴェルスト（アップセル）", "tiers": ["要確認"], "template": "架電リスト：ヴェルスト（アップセル）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "キュアスリッチセラム（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：キュアスリッチセラム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "my's（アップセル）", "tiers": ["0.4"], "template": "架電リスト：my's（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "リシリアフレル　カラシャン（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：リシリアフレル　カラシャン（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "キュアスリッチセラム （アップセル）", "tiers": ["0.4"], "template": "架電リスト：キュアスリッチセラム （アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ぷるっとVenus Rich（初回）", "tiers": ["要確認"], "template": "架電リスト：ぷるっとVenus Rich（初回）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ケトンバーナー （休眠）", "tiers": ["0.8"], "template": "架電リスト：ケトンバーナー （休眠）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "サスティ利尻カラーシャンプー（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：サスティ利尻カラーシャンプー（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "サスティ利尻炭酸カラシャン（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：サスティ利尻炭酸カラシャン（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "シルキースティックファンデ（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：シルキースティックファンデ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ヒートラップシャツ（カゴ落ち）", "tiers": ["0.4", "0.6"], "template": "架電リスト：ヒートラップシャツ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "イクモアナノグロウリッチ（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：イクモアナノグロウリッチ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "モモフル吸水ショーツ（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：モモフル吸水ショーツ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "しろ彩（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：しろ彩（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "KATANクレンジングバーム（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：KATANクレンジングバーム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "FLEURISTE", "tiers": ["0.6", "0.8"], "template": "架電リスト：FLEURISTE\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "とうと（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：とうと（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "my's（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：my's（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "アイムピンチ美容液（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：アイムピンチ美容液（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "\"REDEN（2,980円）\"", "tiers": ["0.6"], "template": "架電リスト：\"REDEN（2,980円）\"\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "北国の恵み（カゴ落ち）", "tiers": ["0.6"], "template": "架電リスト：北国の恵み（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "めなり極（アップセル）", "tiers": ["要確認"], "template": "架電リスト：めなり極（アップセル）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "フムスキンウォーター（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：フムスキンウォーター（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Elfootスリムスリッポン（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：Elfootスリムスリッポン（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Elfootインソール（アップセル）", "tiers": ["0.6"], "template": "架電リスト：Elfootインソール（アップセル）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "リッドキララ（アップセル）", "tiers": ["0.6"], "template": "架電リスト：リッドキララ（アップセル）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "Centto（カゴ落ち）", "tiers": ["0.6"], "template": "架電リスト：Centto（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "aikona（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：aikona（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "KATANダーマヒットセラム（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：KATANダーマヒットセラム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "くろしろ（休眠）", "tiers": ["0.8"], "template": "架電リスト：くろしろ（休眠）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ハラリッチ（カゴ落ち）", "tiers": ["0.8"], "template": "架電リスト：ハラリッチ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "キュリエットスリムレギンス（カゴ落ち）", "tiers": ["0.4", "0.6"], "template": "架電リスト：キュリエットスリムレギンス（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "発酵本家の味噌汁（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：発酵本家の味噌汁（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "発酵本家の味噌汁（アップセル）", "tiers": ["0.6"], "template": "架電リスト：発酵本家の味噌汁（アップセル）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ヒアロディープパッチ（アップセル）", "tiers": ["0.2", "0.4"], "template": "架電リスト：ヒアロディープパッチ（アップセル）\nコール数：\nコンタクト数：\n契約数（0.2）：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ヒアロエイド（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ヒアロエイド（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "アンサード（休眠定期オファー）", "tiers": ["要確認"], "template": "架電リスト：アンサード（休眠定期オファー）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "あゆみの宝（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：あゆみの宝（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Pitsole②（アップセル）", "tiers": ["0.6"], "template": "架電リスト：Pitsole②（アップセル）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "バルクオムプロテイン（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：バルクオムプロテイン（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "バルクオムフェイスケア（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：バルクオムフェイスケア（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "クリアストロングショット②（アップセル）", "tiers": ["0.4"], "template": "架電リスト：クリアストロングショット②（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "リッドキララ②（アップセル）", "tiers": ["0.4"], "template": "架電リスト：リッドキララ②（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ヒアロディープパッチ②（アップセル）", "tiers": ["要確認"], "template": "架電リスト：ヒアロディープパッチ②（アップセル）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ヒアロエイド②（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ヒアロエイド②（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "しろ彩（休眠定期オファー）", "tiers": ["0.8"], "template": "架電リスト：しろ彩（休眠定期オファー）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "moemus（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：moemus（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "しろ彩②（アップセル）", "tiers": ["要確認"], "template": "架電リスト：しろ彩②（アップセル）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "バルクオムシャントリ（休眠定期オファー）", "tiers": ["要確認"], "template": "架電リスト：バルクオムシャントリ（休眠定期オファー）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "バルクオムフェイスケア（休眠定期オファー）", "tiers": ["要確認"], "template": "架電リスト：バルクオムフェイスケア（休眠定期オファー）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "炭酸カラーシャンプー（休眠定期オファー）", "tiers": ["要確認"], "template": "架電リスト：炭酸カラーシャンプー（休眠定期オファー）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "amure（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：amure（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ノ・アルフレシャンプー（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：ノ・アルフレシャンプー（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "クリアストロングショット（カゴ落ち）", "tiers": ["0.8"], "template": "架電リスト：クリアストロングショット（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "リッドキララ（カゴ落ち）", "tiers": ["0.8"], "template": "架電リスト：リッドキララ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ヒアロディープパッチ（カゴ落ち）", "tiers": ["0.8"], "template": "架電リスト：ヒアロディープパッチ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ヒアロエイド（カゴ落ち）", "tiers": ["0.8"], "template": "架電リスト：ヒアロエイド（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "（美的ラボリスト）リジュブネイト（初回）", "tiers": ["要確認"], "template": "架電リスト：（美的ラボリスト）リジュブネイト（初回）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "アイゼンPremium（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：アイゼンPremium（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "アイムエイド（アップセル）", "tiers": ["0.4"], "template": "架電リスト：アイムエイド（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "リンクルスムースセット（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：リンクルスムースセット（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "パーフェクトボディプレミアム（カゴ落ち）", "tiers": ["0.8"], "template": "架電リスト：パーフェクトボディプレミアム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "SIZEUP-α（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：SIZEUP-α（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "kokuu（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：kokuu（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "kokuuたんぱくプラス（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：kokuuたんぱくプラス（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "mamoshu（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：mamoshu（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "KAMOSHIKA SOLE（カゴ落ち）", "tiers": ["0.2", "0.6"], "template": "架電リスト：KAMOSHIKA SOLE（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.2）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "パーフェクトニードル（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：パーフェクトニードル（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "AGAKURO（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：AGAKURO（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "（千趣会リスト）リジュブネイト（初回）", "tiers": ["要確認"], "template": "架電リスト：（千趣会リスト）リジュブネイト（初回）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "Soft Up Bra（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：Soft Up Bra（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "インティメイトウォッシュ（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：インティメイトウォッシュ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "リフトマキシマイザー（カゴ落ち）", "tiers": ["0.8"], "template": "架電リスト：リフトマキシマイザー（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "楽足インソール（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：楽足インソール（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "肝要マキシム（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：肝要マキシム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ワトルクッションファンデ（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：ワトルクッションファンデ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "スタディフード（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：スタディフード（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ブレスマイルサプリ②（初回オファー）", "tiers": ["要確認"], "template": "架電リスト：ブレスマイルサプリ②（初回オファー）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ウェルネスココアグレイセル（休眠）", "tiers": ["0.8"], "template": "架電リスト：ウェルネスココアグレイセル（休眠）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "防已黄耆湯錠SX（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：防已黄耆湯錠SX（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "静寂箋（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：静寂箋（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ハックティック（カゴ落ち）", "tiers": ["0.6"], "template": "架電リスト：ハックティック（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "モルクリアプロ（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：モルクリアプロ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "moemus②（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：moemus②（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "トメラックEX（アップセル）", "tiers": ["0.4"], "template": "架電リスト：トメラックEX（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ヒートラップシャツ（アップセル）", "tiers": ["0.6"], "template": "架電リスト：ヒートラップシャツ（アップセル）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "Vinna C（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：Vinna C（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "シズカホワイトバーム（アップセル）", "tiers": ["0.4"], "template": "架電リスト：シズカホワイトバーム（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "糖貫プロネス（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：糖貫プロネス（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "爽軽青汁（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：爽軽青汁（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "漲天（アップセル）", "tiers": ["0.4"], "template": "架電リスト：漲天（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "（リタコスメリスト）白酵シワ改善原液", "tiers": ["要確認"], "template": "架電リスト：（リタコスメリスト）白酵シワ改善原液\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "Pitsole（Oigurtリスト）", "tiers": ["要確認"], "template": "架電リスト：Pitsole（Oigurtリスト）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "リシリアフレル カラシャン（アップセル）", "tiers": ["0.6"], "template": "架電リスト：リシリアフレル カラシャン（アップセル）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "FeMish ホイップ（アップセル）", "tiers": ["0.4"], "template": "架電リスト：FeMish ホイップ（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "FeMish Oil（アップセル）", "tiers": ["0.4"], "template": "架電リスト：FeMish Oil（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ESTHクレンジング（休眠）", "tiers": ["0.6", "1.0"], "template": "架電リスト：ESTHクレンジング（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（1.0）：\nPt数：\n----------------------"}, {"product": "ライデン（アップセル）", "tiers": ["要確認"], "template": "架電リスト：ライデン（アップセル）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ライデン（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：ライデン（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "coconeシャンプー（カゴ落ち）", "tiers": ["0.4", "0.6"], "template": "架電リスト：coconeシャンプー（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ヘルキュット（休眠）", "tiers": ["要確認"], "template": "架電リスト：ヘルキュット（休眠）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "BV LINE GEL+（初回オファー）", "tiers": ["要確認"], "template": "架電リスト：BV LINE GEL+（初回オファー）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "蓬緑（アップセル）", "tiers": ["0.4"], "template": "架電リスト：蓬緑（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "エシエンスナノシープセラム（カゴ落ち）", "tiers": ["0.1", "0.4", "0.6"], "template": "架電リスト：エシエンスナノシープセラム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.1）：\n契約数（0.4）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "BOGエクストラモイスチャー（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：BOGエクストラモイスチャー（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "肝匠プロネス（アップセル）", "tiers": ["0.4"], "template": "架電リスト：肝匠プロネス（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "クリスタブライトセラム（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：クリスタブライトセラム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ボニーラッシュプレミアム（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：ボニーラッシュプレミアム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "CLEANWAN（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：CLEANWAN（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "メグレアPremium（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：メグレアPremium（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "シビリトル（アップセル）", "tiers": ["0.2"], "template": "架電リスト：シビリトル（アップセル）\nコール数：\nコンタクト数：\n契約数（0.2）：\nPt数：\n----------------------"}, {"product": "（フィレリーナ）スキンコーチ（初回）", "tiers": ["要確認"], "template": "架電リスト：（フィレリーナ）スキンコーチ（初回）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ホワイトリペア（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：ホワイトリペア（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "蓬緑腸活ケア（休眠）", "tiers": ["0.8"], "template": "架電リスト：蓬緑腸活ケア（休眠）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "蓬緑腸活ケア（カゴ落ち）", "tiers": ["0.8"], "template": "架電リスト：蓬緑腸活ケア（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "（青成堂）スキンコーチ（初回）", "tiers": ["要確認"], "template": "架電リスト：（青成堂）スキンコーチ（初回）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "アンエアン（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：アンエアン（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Dr.Chill（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：Dr.Chill（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "防已黄耆湯満量処方（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：防已黄耆湯満量処方（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "マベルベベリンクルクリーム（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：マベルベベリンクルクリーム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "利尻炭酸カラシャン（オフラインカゴ）", "tiers": ["要確認"], "template": "架電リスト：利尻炭酸カラシャン（オフラインカゴ）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ビューティスクリニック（休眠）", "tiers": ["0.8", "1.0"], "template": "架電リスト：ビューティスクリニック（休眠）\nコール数：\nコンタクト数：\n契約数（0.8）：\n契約数（1.0）：\nPt数：\n----------------------"}, {"product": "グナル美容外科（カゴ落ち）", "tiers": ["0.8", "1.0"], "template": "架電リスト：グナル美容外科（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.8）：\n契約数（1.0）：\nPt数：\n----------------------"}, {"product": "しろ彩（アップセル）", "tiers": ["0.4"], "template": "架電リスト：しろ彩（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "クリアゲルクレンズ（初回オファー）", "tiers": ["0.6"], "template": "架電リスト：クリアゲルクレンズ（初回オファー）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "リンクルケアファンデーション（休眠）", "tiers": ["要確認"], "template": "架電リスト：リンクルケアファンデーション（休眠）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "あもう酵素77（アップセル）", "tiers": ["0.4"], "template": "架電リスト：あもう酵素77（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "クレアベベ導入美容液（初回オファー）", "tiers": ["0.6"], "template": "架電リスト：クレアベベ導入美容液（初回オファー）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ワインの定期コース", "tiers": ["0.6", "1.0"], "template": "架電リスト：ワインの定期コース\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（1.0）：\nPt数：\n----------------------"}, {"product": "Yunth生VC美白美容液（休眠）", "tiers": ["0.6"], "template": "架電リスト：Yunth生VC美白美容液（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "BOGリンクル&ホワイト（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：BOGリンクル&ホワイト（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "Brighteエレキブラシ（カゴ落ち）", "tiers": ["0.4", "0.6"], "template": "架電リスト：Brighteエレキブラシ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "Brighteドライヤー（カゴ落ち）", "tiers": ["0.4", "0.6"], "template": "架電リスト：Brighteドライヤー（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ASHADAホワイトクリーム（カゴ落ち）", "tiers": ["0.6", "1.2"], "template": "架電リスト：ASHADAホワイトクリーム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（1.2）：\nPt数：\n----------------------"}, {"product": "ASHADAクリアエッセンス（カゴ落ち）", "tiers": ["0.6", "1.2"], "template": "架電リスト：ASHADAクリアエッセンス（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（1.2）：\nPt数：\n----------------------"}, {"product": "Hairmore（カゴ落ち）", "tiers": ["0.6", "1.2"], "template": "架電リスト：Hairmore（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（1.2）：\nPt数：\n----------------------"}, {"product": "&dot（休眠）", "tiers": ["0.6"], "template": "架電リスト：&dot（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "発酵本家の味噌汁②（アップセル）", "tiers": ["0.4"], "template": "架電リスト：発酵本家の味噌汁②（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Aurelieクレンジング＆洗顔（休眠）", "tiers": ["0.6", "0.8"], "template": "架電リスト：Aurelieクレンジング＆洗顔（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "Aurelieローション＆セラム（休眠）", "tiers": ["0.6", "0.8"], "template": "架電リスト：Aurelieローション＆セラム（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "シルキースティックファンデ（初回）", "tiers": ["要確認"], "template": "架電リスト：シルキースティックファンデ（初回）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "速乾キャシーミルク（買い切り）", "tiers": ["要確認"], "template": "架電リスト：速乾キャシーミルク（買い切り）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "coconeシャンプー（休眠）", "tiers": ["0.6"], "template": "架電リスト：coconeシャンプー（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ペプチア（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ペプチア（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "リフィスト（アップセル）", "tiers": ["0.6"], "template": "架電リスト：リフィスト（アップセル）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "リフィスト（カゴ落ち）", "tiers": ["0.8"], "template": "架電リスト：リフィスト（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "NECKLESS（アップセル）", "tiers": ["0.4"], "template": "架電リスト：NECKLESS（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "NECKLESS（カゴ落ち）", "tiers": ["0.6"], "template": "架電リスト：NECKLESS（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "薬用イビサクリーム（アップセル）", "tiers": ["0.4"], "template": "架電リスト：薬用イビサクリーム（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "グラインディングファンデ（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：グラインディングファンデ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "KATANダーマヒット（アップセル）", "tiers": ["0.4"], "template": "架電リスト：KATANダーマヒット（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "クリアストロングショット③（アップセル）", "tiers": ["0.4"], "template": "架電リスト：クリアストロングショット③（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "リッドキララ③（アップセル）", "tiers": ["0.4"], "template": "架電リスト：リッドキララ③（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ヒアロディープパッチ③（アップセル）", "tiers": ["要確認"], "template": "架電リスト：ヒアロディープパッチ③（アップセル）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ヒアロエイド③（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ヒアロエイド③（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "美容液ダイエットシェイク（アップセル）", "tiers": ["0.6"], "template": "架電リスト：美容液ダイエットシェイク（アップセル）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "リフィスト③（アップセル）", "tiers": ["0.4"], "template": "架電リスト：リフィスト③（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "BASE BREAD（休眠）", "tiers": ["0.6"], "template": "架電リスト：BASE BREAD（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "豊潤サジー（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：豊潤サジー（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "リフィスト②（アップセル）", "tiers": ["0.6"], "template": "架電リスト：リフィスト②（アップセル）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "オモニストン（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：オモニストン（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "りそうのラテ（休眠）", "tiers": ["0.6", "0.8"], "template": "架電リスト：りそうのラテ（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "薬用イビサクリーム（カゴ落ち）", "tiers": ["0.6"], "template": "架電リスト：薬用イビサクリーム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "獣王BEAST（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：獣王BEAST（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ニコメディコ（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：ニコメディコ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "コレスタート（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：コレスタート（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "シェイクミー（アップセル）", "tiers": ["0.4"], "template": "架電リスト：シェイクミー（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "シェイクミー（カゴ落ち）", "tiers": ["0.6"], "template": "架電リスト：シェイクミー（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "爽軽青汁（アップセル）", "tiers": ["0.4"], "template": "架電リスト：爽軽青汁（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "アイゼンPremium（アップセル）", "tiers": ["0.4"], "template": "架電リスト：アイゼンPremium（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Brighteエレキリフト（買い切り）", "tiers": ["0.8"], "template": "架電リスト：Brighteエレキリフト（買い切り）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "Oigurt（休眠）", "tiers": ["0.8"], "template": "架電リスト：Oigurt（休眠）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "FeMish ホイップ（初回オファー）", "tiers": ["0.6"], "template": "架電リスト：FeMish ホイップ（初回オファー）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "FeMish CLEAR（初回オファー）", "tiers": ["0.6"], "template": "架電リスト：FeMish CLEAR（初回オファー）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "Brighteエレキブラシ（買い切り）", "tiers": ["1.2"], "template": "架電リスト：Brighteエレキブラシ（買い切り）\nコール数：\nコンタクト数：\n契約数（1.2）：\nPt数：\n----------------------"}, {"product": "Brighteドライヤー（買い切り）", "tiers": ["0.8"], "template": "架電リスト：Brighteドライヤー（買い切り）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "Brighteアイロン（買い切り）", "tiers": ["0.6"], "template": "架電リスト：Brighteアイロン（買い切り）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ルーフェン本体（カゴ落ち）", "tiers": ["1.0"], "template": "架電リスト：ルーフェン本体（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（1.0）：\nPt数：\n----------------------"}, {"product": "リセラン（アップセル）", "tiers": ["要確認"], "template": "架電リスト：リセラン（アップセル）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "coconeシャンプー（アップセル）", "tiers": ["0.4"], "template": "架電リスト：coconeシャンプー（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ネイルスクール申込（休眠）", "tiers": ["要確認"], "template": "架電リスト：ネイルスクール申込（休眠）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ボラケア乳酸菌ラフマα（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：ボラケア乳酸菌ラフマα（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ワンステップカラシャン（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：ワンステップカラシャン（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ワンステップカラシャン（アップセル）", "tiers": ["0.6"], "template": "架電リスト：ワンステップカラシャン（アップセル）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ビーリスラリッチスカルプ（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：ビーリスラリッチスカルプ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "（青成堂）マイクロバブル（初回）", "tiers": ["0.6"], "template": "架電リスト：（青成堂）マイクロバブル（初回）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "エシエンスダーマインショット（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：エシエンスダーマインショット（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ヒザこし健康源（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：ヒザこし健康源（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "FeMish CLEAR（アップセル）", "tiers": ["0.4"], "template": "架電リスト：FeMish CLEAR（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "モモフルデイリーブラ（カゴ落ち）", "tiers": ["0.4", "0.6"], "template": "架電リスト：モモフルデイリーブラ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "肝匠プロネス（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：肝匠プロネス（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "NNEニードル炭酸パック（アップセル）", "tiers": ["0.4"], "template": "架電リスト：NNEニードル炭酸パック（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Vinna C（アップセル）", "tiers": ["0.4"], "template": "架電リスト：Vinna C（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "快腸ハニー（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：快腸ハニー（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ベルタ葉酸サプリ・プレリズム（カゴ落ち）", "tiers": ["0.6", "0.8"], "template": "架電リスト：ベルタ葉酸サプリ・プレリズム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ベルタプレリズム（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：ベルタプレリズム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ENPRINA（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ENPRINA（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ハックティック（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ハックティック（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Offlat（アップセル）", "tiers": ["0.4"], "template": "架電リスト：Offlat（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "カンシャ（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：カンシャ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Offlat（カゴ落ち）", "tiers": ["0.4", "0.6"], "template": "架電リスト：Offlat（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ボラケア乳酸菌（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：ボラケア乳酸菌（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "オリレール（休眠）", "tiers": ["0.6"], "template": "架電リスト：オリレール（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "WINクリニック医療脱毛（カゴ落ち）", "tiers": ["0.8"], "template": "架電リスト：WINクリニック医療脱毛（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ASHADAクリーム（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ASHADAクリーム（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ASHADAエッセンス（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ASHADAエッセンス（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Hairmore（アップセル）", "tiers": ["0.4"], "template": "架電リスト：Hairmore（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Dr.Chill（アップセル）", "tiers": ["0.4"], "template": "架電リスト：Dr.Chill（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "スリープメディカル（カゴ落ち）", "tiers": ["0.8"], "template": "架電リスト：スリープメディカル（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "サステナオンラインクリニック（休眠）", "tiers": ["2"], "template": "架電リスト：サステナオンラインクリニック（休眠）\nコール数：\nコンタクト数：\n契約数（2）：\nPt数：\n----------------------"}, {"product": "CHILLERS（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：CHILLERS（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "CHILLERS（アップセル）", "tiers": ["0.4"], "template": "架電リスト：CHILLERS（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "快朝ハーブ乳酸菌（カゴ落ち）", "tiers": ["0.2", "0.4"], "template": "架電リスト：快朝ハーブ乳酸菌（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.2）：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Daily GABA（アップセル）", "tiers": ["0.4"], "template": "架電リスト：Daily GABA（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Aurelieクレンジング（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：Aurelieクレンジング（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "Aurelieローション（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：Aurelieローション（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ワンデイクレンズセット（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：ワンデイクレンズセット（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ミラーフォース（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：ミラーフォース（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "Dr.Chill（休眠）", "tiers": ["0.6"], "template": "架電リスト：Dr.Chill（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "Dr.StickTypeX（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：Dr.StickTypeX（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "Yunth生VAダーマ美容液（休眠）", "tiers": ["0.6", "1.0"], "template": "架電リスト：Yunth生VAダーマ美容液（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（1.0）：\nPt数：\n----------------------"}, {"product": "防風通聖散錠SS（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：防風通聖散錠SS（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "リバイタルゴールド（カゴ落ち）", "tiers": ["0.4", "0.6"], "template": "架電リスト：リバイタルゴールド（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "リバイタルゴールド（アップセル）", "tiers": ["0.4"], "template": "架電リスト：リバイタルゴールド（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "防風通聖散満量処方（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：防風通聖散満量処方（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "トリコレトリートメント（カゴ落ち）", "tiers": ["0.4", "0.6"], "template": "架電リスト：トリコレトリートメント（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ASHADAアイラッシュ（カゴ落ち）", "tiers": ["0.6", "1.2"], "template": "架電リスト：ASHADAアイラッシュ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（1.2）：\nPt数：\n----------------------"}, {"product": "ダーマヒットセラム5 P/V（カゴ落ち）", "tiers": ["0.6"], "template": "架電リスト：ダーマヒットセラム5 P/V（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ほぐらくケアEX（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：ほぐらくケアEX（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Aurelieクレ&セラ（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：Aurelieクレ&セラ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "フィシュル（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：フィシュル（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "豊潤サジー（初回オファー）", "tiers": ["0.6"], "template": "架電リスト：豊潤サジー（初回オファー）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "美膳の酵熟米（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：美膳の酵熟米（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "BVLINEサプリプレミアム（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：BVLINEサプリプレミアム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ミラーフォース（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ミラーフォース（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ブラックサプリEXプラス（休眠）", "tiers": ["0.8"], "template": "架電リスト：ブラックサプリEXプラス（休眠）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "カカるるん（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：カカるるん（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Potenza錠0（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：Potenza錠0（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "シュサノン内服錠（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：シュサノン内服錠（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "FeMish Oil（初回オファー）", "tiers": ["0.6"], "template": "架電リスト：FeMish Oil（初回オファー）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "クリスタブライトセラム（アップセル）", "tiers": ["0.4"], "template": "架電リスト：クリスタブライトセラム（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ジューシージョリー（カゴ落ち）", "tiers": ["0.6", "0.8"], "template": "架電リスト：ジューシージョリー（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "メッドケアプロ（カゴ落ち）", "tiers": ["0.6"], "template": "架電リスト：メッドケアプロ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "メッドケアプロ（アップセル）", "tiers": ["0.4"], "template": "架電リスト：メッドケアプロ（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "薬用リリィジュRICH（カゴ落ち）", "tiers": ["0.2", "0.8"], "template": "架電リスト：薬用リリィジュRICH（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.2）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "発酵本家のあまざけ雪の糀（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：発酵本家のあまざけ雪の糀（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "発酵本家のあまざけ雪の糀（アップセル）", "tiers": ["0.4", "0.6"], "template": "架電リスト：発酵本家のあまざけ雪の糀（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ホワイトハンドセラム（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：ホワイトハンドセラム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "発酵本家の味噌汁（休眠）", "tiers": ["0.8"], "template": "架電リスト：発酵本家の味噌汁（休眠）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "セルカ（カゴ落ち）", "tiers": ["0.2"], "template": "架電リスト：セルカ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.2）：\nPt数：\n----------------------"}, {"product": "防已黄耆湯錠SX（アップセル）", "tiers": ["0.1", "0.4", "0.8"], "template": "架電リスト：防已黄耆湯錠SX（アップセル）\nコール数：\nコンタクト数：\n契約数（0.1）：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "防已黄耆湯満量処方（アップセル）", "tiers": ["0.1", "0.4", "0.8"], "template": "架電リスト：防已黄耆湯満量処方（アップセル）\nコール数：\nコンタクト数：\n契約数（0.1）：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "リライブウェア（休眠）", "tiers": ["0.6"], "template": "架電リスト：リライブウェア（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "蓬緑腸活ケア（返金保証休眠）", "tiers": ["1.2"], "template": "架電リスト：蓬緑腸活ケア（返金保証休眠）\nコール数：\nコンタクト数：\n契約数（1.2）：\nPt数：\n----------------------"}, {"product": "デジタルクリニック 肥満症（カゴ落ち）", "tiers": ["0.6"], "template": "架電リスト：デジタルクリニック 肥満症（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "セナクリア（カゴ落ち）", "tiers": ["0.6"], "template": "架電リスト：セナクリア（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "肝臓パワフル習慣（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：肝臓パワフル習慣（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "スマイルモア矯正（休眠）", "tiers": ["0.8"], "template": "架電リスト：スマイルモア矯正（休眠）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ラズリムインティメイト（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：ラズリムインティメイト（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ラズリムインティメイト（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ラズリムインティメイト（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "三ツ星クリアナチュラル（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：三ツ星クリアナチュラル（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "NNEニードル炭酸パック（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：NNEニードル炭酸パック（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ココアグレイセル②（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ココアグレイセル②（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "プレミアム酵素茶漬け②（アップセル）", "tiers": ["0.4"], "template": "架電リスト：プレミアム酵素茶漬け②（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "スラヘル（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：スラヘル（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "デジタルクリニック 性感染症（カゴ落ち）", "tiers": ["0.6"], "template": "架電リスト：デジタルクリニック 性感染症（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "シロッシュ（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：シロッシュ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "coconeシャンプー（定期引上）", "tiers": ["0.6"], "template": "架電リスト：coconeシャンプー（定期引上）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ゴッソトリノ（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：ゴッソトリノ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ニューモⅤ（定期引上）", "tiers": ["0.6"], "template": "架電リスト：ニューモⅤ（定期引上）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ゴッソトリノ（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ゴッソトリノ（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "アゲルキャリア（カゴ落ち）", "tiers": ["0.6"], "template": "架電リスト：アゲルキャリア（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ジューシージョリー（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ジューシージョリー（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ととのうべいる&ととのうみすと（休眠）", "tiers": ["0.6"], "template": "架電リスト：ととのうべいる&ととのうみすと（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "Yunth生AZ美容液（休眠）", "tiers": ["0.6"], "template": "架電リスト：Yunth生AZ美容液（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "デイリーGABA/DHA&EPA（休眠）", "tiers": ["0.6", "1.0"], "template": "架電リスト：デイリーGABA/DHA&EPA（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（1.0）：\nPt数：\n----------------------"}, {"product": "FeMish ホイップ（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：FeMish ホイップ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "デジタルクリニック 心療内科（カゴ落ち）", "tiers": ["0.6"], "template": "架電リスト：デジタルクリニック 心療内科（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ESTHヘッドスパシャンプー（休眠）", "tiers": ["0.8", "1.0"], "template": "架電リスト：ESTHヘッドスパシャンプー（休眠）\nコール数：\nコンタクト数：\n契約数（0.8）：\n契約数（1.0）：\nPt数：\n----------------------"}, {"product": "めぐみのルテイン30（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：めぐみのルテイン30（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "オメガ3（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：オメガ3（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "エニピル（カゴ落ち）", "tiers": ["0.6", "0.8"], "template": "架電リスト：エニピル（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "BASE BREAD②（休眠）", "tiers": ["0.6"], "template": "架電リスト：BASE BREAD②（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ルテインプラチナアイ（休眠）", "tiers": ["0.8"], "template": "架電リスト：ルテインプラチナアイ（休眠）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "No.C（カゴ落ち）", "tiers": ["0.4", "0.6"], "template": "架電リスト：No.C（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "リベンジャーズ（カゴ落ち）", "tiers": ["0.8"], "template": "架電リスト：リベンジャーズ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "デジタルクリニック 不眠症（カゴ落ち）", "tiers": ["0.6"], "template": "架電リスト：デジタルクリニック 不眠症（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "オリレール②（休眠）", "tiers": ["0.6"], "template": "架電リスト：オリレール②（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "No.C（アップセル）", "tiers": ["0.4"], "template": "架電リスト：No.C（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "BELMISEスリムレギンス（買い切り）", "tiers": ["0.4", "0.6"], "template": "架電リスト：BELMISEスリムレギンス（買い切り）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "Dr.Stick iLESS（休眠）", "tiers": ["0.6"], "template": "架電リスト：Dr.Stick iLESS（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "シボヘール3（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：シボヘール3（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "FASHIONBODY（アップセル）", "tiers": ["0.4"], "template": "架電リスト：FASHIONBODY（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ハックティック②（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ハックティック②（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ヘレネーズクリーム（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：ヘレネーズクリーム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "クリアストロングF5（アップセル）", "tiers": ["0.4"], "template": "架電リスト：クリアストロングF5（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "リッドキララF5（アップセル）", "tiers": ["0.4"], "template": "架電リスト：リッドキララF5（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ヒアロエイドF5（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ヒアロエイドF5（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "リフィストF5（アップセル）", "tiers": ["0.4"], "template": "架電リスト：リフィストF5（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Daily1 プレミアム（カゴ落ち）", "tiers": ["0.4", "0.8"], "template": "架電リスト：Daily1 プレミアム（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "FASHIONBODY②（アップセル）", "tiers": ["0.4"], "template": "架電リスト：FASHIONBODY②（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "α-BULL BLACK（カゴ落ち）", "tiers": ["0.6"], "template": "架電リスト：α-BULL BLACK（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "トリビュー予約（休眠）", "tiers": ["0.8"], "template": "架電リスト：トリビュー予約（休眠）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ダーマヒットセラム5 P/V（休眠）", "tiers": ["0.8"], "template": "架電リスト：ダーマヒットセラム5 P/V（休眠）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "オデコディープパッチ（アップセル）", "tiers": ["0.4"], "template": "架電リスト：オデコディープパッチ（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "オデコディープパッチ②（アップセル）", "tiers": ["0.4"], "template": "架電リスト：オデコディープパッチ②（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "オデコディープパッチ③（アップセル）", "tiers": ["0.4"], "template": "架電リスト：オデコディープパッチ③（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "オデコディープパッチF5（アップセル）", "tiers": ["0.4"], "template": "架電リスト：オデコディープパッチF5（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ミケンディープパッチ（アップセル）", "tiers": ["0.6"], "template": "架電リスト：ミケンディープパッチ（アップセル）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ミケンディープパッチ②（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ミケンディープパッチ②（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ミケンディープパッチ③（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ミケンディープパッチ③（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ミケンディープパッチF5（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ミケンディープパッチF5（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "美膳の酵熟米（アップセル）", "tiers": ["0.4"], "template": "架電リスト：美膳の酵熟米（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "ターミナリアファースト（休眠）", "tiers": ["0.6"], "template": "架電リスト：ターミナリアファースト（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "オデコディープパッチ（カゴ落ち）", "tiers": ["0.8"], "template": "架電リスト：オデコディープパッチ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ミケンディープパッチ（カゴ落ち）", "tiers": ["0.8"], "template": "架電リスト：ミケンディープパッチ（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ラッシェンド（アップセル）", "tiers": ["0.4"], "template": "架電リスト：ラッシェンド（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "BASE FOOD（休眠）", "tiers": ["0.6", "0.8"], "template": "架電リスト：BASE FOOD（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ベルミスレギンスcolor+（カゴ落ち）", "tiers": ["0.4", "0.6"], "template": "架電リスト：ベルミスレギンスcolor+（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ベルミスリムーブレギンス（カゴ落ち）", "tiers": ["0.4", "0.6"], "template": "架電リスト：ベルミスリムーブレギンス（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "PELTHYリセットレギンス（カゴ落ち）", "tiers": ["0.4", "0.6"], "template": "架電リスト：PELTHYリセットレギンス（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "三ツ星ファーム（アップセル）", "tiers": ["0.4"], "template": "架電リスト：三ツ星ファーム（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "カカるるん（アップセル）", "tiers": ["0.4"], "template": "架電リスト：カカるるん（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "さらば糖脂塩（カゴ落ち）", "tiers": ["0.6"], "template": "架電リスト：さらば糖脂塩（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "イチョウ葉（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：イチョウ葉（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ディープパッチ（休眠）", "tiers": ["要確認"], "template": "架電リスト：ディープパッチ（休眠）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "爽快柑（定期引上）", "tiers": ["0.6"], "template": "架電リスト：爽快柑（定期引上）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "廃車ツヨシ！（休眠）", "tiers": ["要確認"], "template": "架電リスト：廃車ツヨシ！（休眠）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "シズカホワイトゲル（休眠）", "tiers": ["0.4", "0.8"], "template": "架電リスト：シズカホワイトゲル（休眠）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "メグレアPremium（アップセル）", "tiers": ["0.4"], "template": "架電リスト：メグレアPremium（アップセル）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "Brighteミストセラム（買い切り）", "tiers": ["0.6"], "template": "架電リスト：Brighteミストセラム（買い切り）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "P3（定期引上）", "tiers": ["要確認"], "template": "架電リスト：P3（定期引上）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "Total One Care（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：Total One Care（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ネルナラW（カゴ落ち）", "tiers": ["0.4"], "template": "架電リスト：ネルナラW（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.4）：\nPt数：\n----------------------"}, {"product": "デジタルクリニック ED治療（カゴ落ち）", "tiers": ["0.6"], "template": "架電リスト：デジタルクリニック ED治療（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}, {"product": "ころっぷのまごころごはん（カゴ落ち）", "tiers": ["要確認"], "template": "架電リスト：ころっぷのまごころごはん（カゴ落ち）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "シビリトル②（アップセル）", "tiers": ["0.2"], "template": "架電リスト：シビリトル②（アップセル）\nコール数：\nコンタクト数：\n契約数（0.2）：\nPt数：\n----------------------"}, {"product": "出張買取のプリフラ（休眠）", "tiers": ["要確認"], "template": "架電リスト：出張買取のプリフラ（休眠）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ハックティック（休眠）", "tiers": ["0.4", "0.8"], "template": "架電リスト：ハックティック（休眠）\nコール数：\nコンタクト数：\n契約数（0.4）：\n契約数（0.8）：\nPt数：\n----------------------"}, {"product": "ジューシージョリー②（アップセル）", "tiers": ["要確認"], "template": "架電リスト：ジューシージョリー②（アップセル）\nコール数：\nコンタクト数：\n契約数（要確認）：\nPt数：\n----------------------"}, {"product": "ホワイトプレミアム（休眠）", "tiers": ["0.6"], "template": "架電リスト：ホワイトプレミアム（休眠）\nコール数：\nコンタクト数：\n契約数（0.6）：\nPt数：\n----------------------"}]</script>
+
+<script>
+(function(){
+  // ---- copy buttons ----
+  function fallbackCopy(text){
+    var ta=document.createElement('textarea');
+    ta.value=text;
+    ta.style.position='fixed';
+    ta.style.opacity='0';
+    document.body.appendChild(ta);
+    ta.focus();ta.select();
+    try{document.execCommand('copy');}catch(e){}
+    document.body.removeChild(ta);
+  }
+  function copyText(text){
+    if(navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(text).catch(function(){fallbackCopy(text);});
+    }else{
+      fallbackCopy(text);
+    }
+  }
+  function flashButton(btn){
+    var orig=btn.textContent;
+    btn.textContent='コピーしました！';
+    btn.classList.add('copied');
+    setTimeout(function(){
+      btn.textContent=orig;
+      btn.classList.remove('copied');
+    },1500);
+  }
+  document.addEventListener('click', function(e){
+    var btn=e.target.closest('.copy-btn');
+    if(!btn) return;
+    var targetId=btn.getAttribute('data-copy-target');
+    var el=document.getElementById(targetId);
+    if(!el) return;
+    copyText(el.textContent);
+    flashButton(btn);
+  });
+
+  // ---- tabs / scroll spy ----
+  var tabButtons=Array.prototype.slice.call(document.querySelectorAll('.tab-btn'));
+  tabButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var target=document.getElementById(btn.getAttribute('data-target'));
+      if(target){
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  });
+  var sections=['sec-overall','sec-builder','sec-search','sec-other','sec-backyard'].map(function(id){return document.getElementById(id);});
+  if('IntersectionObserver' in window){
+    var observer=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          var id=entry.target.id;
+          tabButtons.forEach(function(btn){
+            btn.classList.toggle('active', btn.getAttribute('data-target')===id);
+          });
+        }
+      });
+    }, {rootMargin:'-30% 0px -60% 0px', threshold:0});
+    sections.forEach(function(s){ if(s) observer.observe(s); });
+  }
+
+  // ---- product data (embedded; the source of truth for republishing) ----
+  var listEl=document.getElementById('product-list');
+  var emptyEl=document.getElementById('empty-state');
+  var searchHintEl=document.getElementById('search-hint');
+  var searchHeadEl=document.getElementById('search-head');
+  var countEl=document.getElementById('count-num');
+  var totalEl=document.getElementById('total-num');
+  var searchInput=document.getElementById('search');
+  var dataScript=document.getElementById('products-data');
+  var products=[];
+  try{ products=JSON.parse(dataScript.textContent); }catch(e){ products=[]; }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function chipClass(tier){
+    return tier==='要確認' ? 'chip warn' : 'chip';
+  }
+
+  function buildTemplate(p){
+    var lines=['架電リスト：'+p.product,'コール数：','コンタクト数：'];
+    p.tiers.forEach(function(t){
+      lines.push('契約数（'+t+'）：');
+    });
+    lines.push('Pt数：');
+    lines.push('----------------------');
+    return lines.join('\n');
+  }
+
+  function render(items){
+    listEl.innerHTML='';
+    items.forEach(function(p, idx){
+      var row=document.createElement('div');
+      row.className='product-row';
+      row.dataset.name=p.product;
+      row.dataset.index=String(idx);
+
+      var chips=p.tiers.map(function(t){
+        return '<span class="'+chipClass(t)+'">'+(t==='要確認' ? '要確認' : t+'pt')+'</span>';
+      }).join('');
+
+      var tmplId='ptmpl-'+idx;
+      var template=buildTemplate(p);
+      row.innerHTML =
+        '<button type="button" class="product-row-head">'+
+          '<span class="product-name">'+escapeHtml(p.product)+'</span>'+
+          chips+
+          '<span class="chevron">&#9662;</span>'+
+        '</button>'+
+        '<div class="product-row-body">'+
+          '<div class="tmpl">'+
+            '<pre id="'+tmplId+'">'+escapeHtml(template)+'</pre>'+
+            '<button class="copy-btn" data-copy-target="'+tmplId+'">コピー</button>'+
+          '</div>'+
+        '</div>';
+
+      var head=row.querySelector('.product-row-head');
+      head.addEventListener('click', function(){
+        row.classList.toggle('open');
+      });
+
+      listEl.appendChild(row);
+    });
+  }
+
+  function applyFilter(){
+    var q=searchInput.value.trim();
+    var rows=Array.prototype.slice.call(listEl.querySelectorAll('.product-row'));
+    var shown=0;
+    rows.forEach(function(row){
+      var match = q!=='' && row.dataset.name.indexOf(q)!==-1;
+      row.classList.toggle('hidden', !match);
+      if(match) shown++;
+    });
+    countEl.textContent=shown;
+    if(q===''){
+      searchHintEl.style.display='block';
+      searchHeadEl.hidden=true;
+      emptyEl.style.display='none';
+    }else{
+      searchHintEl.style.display='none';
+      searchHeadEl.hidden=false;
+      emptyEl.style.display = shown===0 ? 'block' : 'none';
+    }
+  }
+
+  searchInput.addEventListener('input', applyFilter);
+
+  totalEl.textContent=String(products.length);
+  render(products);
+  applyFilter();
+
+  // ---- report builder (auto-calculate day report) ----
+  (function(){
+    var opNameEl=document.getElementById('b-opname');
+    var dateEl=document.getElementById('b-date');
+    var dateTodayBtn=document.getElementById('b-date-today');
+    var backyardEl=document.getElementById('b-backyard');
+    var pickerWrap=document.getElementById('b-picker-wrap');
+    var productInput=document.getElementById('b-product-input');
+    var productOptions=document.getElementById('b-product-options');
+    var addBtn=document.getElementById('b-add-block');
+    var addError=document.getElementById('b-add-error');
+    var blockCountEl=document.getElementById('b-block-count');
+    var blocksWrap=document.getElementById('b-blocks');
+    var outputCard=document.getElementById('b-output-card');
+    var outputEl=document.getElementById('b-output');
+    var totalPill=document.getElementById('b-total-pill');
+    var totalNumEl=document.getElementById('b-total-num');
+    var warnEl=document.getElementById('b-warn');
+    var backyardGateEl=document.getElementById('b-backyard-gate');
+    var productGateEl=document.getElementById('b-product-gate');
+    var productHintEl=document.getElementById('b-product-hint');
+
+    if(!opNameEl){ return; } // builder markup not present in this build
+
+    var blocks=[];
+    var blockSeq=0;
+
+    function hasOpName(){
+      return opNameEl.value.trim().length>0;
+    }
+
+    function updateGateState(){
+      var ok=hasOpName();
+      backyardEl.disabled=!ok;
+      productInput.disabled=!ok;
+      addBtn.disabled=!ok;
+      backyardGateEl.hidden=ok;
+      productGateEl.hidden=ok;
+      productHintEl.hidden=!ok;
+      if(!ok && backyardEl.checked){
+        backyardEl.checked=false;
+        pickerWrap.hidden=false;
+        updateOutput();
+      }
+    }
+
+    function formatToday(){
+      var d=new Date();
+      var days=['日','月','火','水','木','金','土'];
+      return (d.getMonth()+1)+'月'+d.getDate()+'日（'+days[d.getDay()]+'）';
+    }
+
+    products.forEach(function(p){
+      var opt=document.createElement('option');
+      opt.value=p.product;
+      productOptions.appendChild(opt);
+    });
+
+    function computeBlockPt(block){
+      if(block.tiers.indexOf('要確認')!==-1){
+        return {value:null, unconfirmed:true};
+      }
+      var total=0;
+      block.tiers.forEach(function(t, i){
+        var n=parseFloat(block.tierCounts[i]);
+        if(!isNaN(n)){
+          total += n*parseFloat(t);
+        }
+      });
+      total=Math.round(total*100)/100;
+      return {value:total, unconfirmed:false};
+    }
+
+    function renderBlocks(){
+      blocksWrap.innerHTML='';
+      blocks.forEach(function(block){
+        var card=document.createElement('div');
+        card.className='card block-card';
+
+        var pt=computeBlockPt(block);
+
+        var tierFieldsHtml=block.tiers.map(function(t, i){
+          return '<div class="field-row"><label>契約数（'+escapeHtml(t)+'）</label>'+
+            '<input type="number" inputmode="numeric" min="0" data-field="tier" data-tier-index="'+i+'" data-block="'+block.id+'" value="'+escapeHtml(block.tierCounts[i])+'"></div>';
+        }).join('');
+
+        var ptHtml;
+        if(pt.unconfirmed){
+          ptHtml='<div class="field-row" style="margin-top:10px;max-width:240px;"><label>Pt数（社員に確認した値）</label>'+
+            '<input type="text" data-field="manual-pt" data-block="'+block.id+'" value="'+escapeHtml(block.manualPt||'')+'" placeholder="社員に確認後に入力"></div>';
+        }else{
+          ptHtml='<div class="block-pt" id="pt-'+block.id+'">Pt数：'+pt.value+'</div>';
+        }
+
+        card.innerHTML=
+          '<div class="block-card-head">'+
+            '<span class="product-name">'+escapeHtml(block.product)+'</span>'+
+            '<button type="button" class="block-remove" data-act="remove" data-block="'+block.id+'" aria-label="削除">✕</button>'+
+          '</div>'+
+          '<label class="other-toggle"><input type="checkbox" data-act="other-toggle" data-block="'+block.id+'" '+(block.isOther?'checked':'')+'><span>他の商材の契約になった場合として追加する（コール数・コンタクト数は書かない）</span></label>'+
+          (block.isOther ? '' :
+            '<div class="builder-grid">'+
+              '<div class="field-row"><label>コール数</label><input type="number" inputmode="numeric" min="0" data-field="call" data-block="'+block.id+'" value="'+escapeHtml(block.call)+'"></div>'+
+              '<div class="field-row"><label>コンタクト数</label><input type="number" inputmode="numeric" min="0" data-field="contact" data-block="'+block.id+'" value="'+escapeHtml(block.contact)+'"></div>'+
+            '</div>'
+          )+
+          '<div class="builder-grid">'+tierFieldsHtml+'</div>'+
+          ptHtml;
+
+        card.querySelector('[data-act="remove"]').addEventListener('click', function(){
+          blocks=blocks.filter(function(b){return b.id!==block.id;});
+          renderBlocks();
+        });
+        card.querySelector('[data-act="other-toggle"]').addEventListener('change', function(e){
+          block.isOther=e.target.checked;
+          renderBlocks();
+        });
+        var callInput=card.querySelector('[data-field="call"]');
+        if(callInput) callInput.addEventListener('input', function(e){ block.call=e.target.value; updateOutput(); });
+        var contactInput=card.querySelector('[data-field="contact"]');
+        if(contactInput) contactInput.addEventListener('input', function(e){ block.contact=e.target.value; updateOutput(); });
+        Array.prototype.slice.call(card.querySelectorAll('[data-field="tier"]')).forEach(function(inp){
+          inp.addEventListener('input', function(e){
+            var i=Number(e.target.getAttribute('data-tier-index'));
+            block.tierCounts[i]=e.target.value;
+            var newPt=computeBlockPt(block);
+            var ptEl=document.getElementById('pt-'+block.id);
+            if(ptEl && !newPt.unconfirmed){ ptEl.textContent='Pt数：'+newPt.value; }
+            updateOutput();
+          });
+        });
+        var manualPtInput=card.querySelector('[data-field="manual-pt"]');
+        if(manualPtInput) manualPtInput.addEventListener('input', function(e){ block.manualPt=e.target.value; updateOutput(); });
+
+        blocksWrap.appendChild(card);
+      });
+      if(blocks.length>0){
+        blockCountEl.hidden=false;
+        blockCountEl.textContent='現在 '+blocks.length+' 件の商材を追加済みです。他にも架電した商材があれば、上の欄から続けて追加してください。';
+      }else{
+        blockCountEl.hidden=true;
+      }
+      updateOutput();
+    }
+
+    function updateOutput(){
+      var opName=opNameEl.value.trim();
+      var dateVal=dateEl.value.trim();
+      var isBackyard=backyardEl.checked;
+      var text;
+
+      if(isBackyard){
+        text='【日報】\nOP名：'+(opName||'（あなたの氏名）')+'\n日付：'+(dateVal||'（日付）')+'\n----------------------\nバックヤード業務\n----------------------';
+        totalPill.hidden=true;
+        warnEl.hidden=true;
+      }else{
+        var lines=['【日報】','OP名：'+(opName||'（あなたの氏名）'),'日付：'+(dateVal||'（日付）'),'----------------------'];
+        var total=0;
+        var hasPendingUnconfirmed=false;
+        blocks.forEach(function(block){
+          lines.push('架電リスト：'+block.product);
+          if(!block.isOther){
+            lines.push('コール数：'+(block.call!==''?block.call:'0'));
+            lines.push('コンタクト数：'+(block.contact!==''?block.contact:'0'));
+          }
+          block.tiers.forEach(function(t, i){
+            lines.push('契約数（'+t+'）：'+(block.tierCounts[i]!==''?block.tierCounts[i]:'0'));
+          });
+          var pt=computeBlockPt(block);
+          if(pt.unconfirmed){
+            hasPendingUnconfirmed=true;
+            lines.push('Pt数：'+(block.manualPt||''));
+            var manualNum=parseFloat(block.manualPt);
+            if(!isNaN(manualNum)) total+=manualNum;
+          }else{
+            lines.push('Pt数：'+pt.value);
+            total+=pt.value;
+          }
+          lines.push('----------------------');
+        });
+        total=Math.round(total*100)/100;
+        lines.push('合計Pt：'+total);
+        text=lines.join('\n');
+
+        totalPill.hidden=false;
+        totalNumEl.textContent=String(total);
+        if(hasPendingUnconfirmed){
+          warnEl.hidden=false;
+          warnEl.textContent='「要確認」の商材が含まれています。社員に確認したPt値を入力してから送信してください。';
+        }else{
+          warnEl.hidden=true;
+        }
+      }
+
+      outputEl.textContent=text;
+      outputCard.hidden=!(isBackyard || blocks.length>0);
+    }
+
+    addBtn.addEventListener('click', function(){
+      if(!hasOpName()){
+        updateGateState();
+        return;
+      }
+      var name=productInput.value.trim();
+      var match=products.filter(function(p){return p.product===name;})[0];
+      if(!match){
+        addError.hidden=false;
+        return;
+      }
+      addError.hidden=true;
+      blocks.push({
+        id:'blk'+(blockSeq++),
+        product:match.product,
+        tiers:match.tiers.slice(),
+        isOther:false,
+        call:'',
+        contact:'',
+        tierCounts:match.tiers.map(function(){return '';}),
+        manualPt:''
+      });
+      productInput.value='';
+      renderBlocks();
+      productInput.focus();
+    });
+
+    backyardEl.addEventListener('change', function(e){
+      if(!hasOpName()){
+        e.target.checked=false;
+        updateGateState();
+        return;
+      }
+      pickerWrap.hidden=e.target.checked;
+      updateOutput();
+    });
+
+    opNameEl.addEventListener('input', function(){
+      updateGateState();
+      updateOutput();
+    });
+    dateEl.addEventListener('input', updateOutput);
+    dateTodayBtn.addEventListener('click', function(){
+      dateEl.value=formatToday();
+      updateOutput();
+    });
+
+    dateEl.value=formatToday();
+    updateGateState();
+    updateOutput();
+  })();
+})();
+</script>
+
+
+</body>
+</html>
