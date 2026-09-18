@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>日報テンプレートガイド</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
 <style>
@@ -597,6 +596,26 @@
     text-decoration:underline;
   }
   .reset-btn:hover{color:var(--warn-ink);}
+  .save-now-btn{
+    flex:0 0 auto;
+    background:none;
+    border:1px solid var(--accent);
+    border-radius:8px;
+    color:var(--accent);
+    font-size:12.5px;
+    font-weight:700;
+    padding:6px 10px;
+    cursor:pointer;
+    white-space:nowrap;
+    font-family:"Noto Sans JP",sans-serif;
+  }
+  .save-now-btn:hover{background:var(--accent);color:var(--accent-ink);}
+  .save-now-btn[disabled]{opacity:.6;cursor:default;}
+  .save-status{
+    font-size:12px;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
   .product-actions{
     display:none;
     gap:8px;
@@ -621,7 +640,6 @@
   }
   .confirm-delete.open{display:flex;}
 </style>
-
 </head>
 <body>
 <header class="top">
@@ -718,7 +736,7 @@ Pt数：4
       <span class="step-no">2</span>
       <h2 class="section-title">日報を自動で作成する</h2>
     </div>
-    <p class="lead">架電した商材を選んでコール数・コンタクト数・契約数を入力するだけで、Pt数と合計Ptが自動で計算されます。<b>その日に複数の商材に架電した場合は、下の「架電した商材を追加」で商材を選んで「追加」を押す操作を、架電した商材の数だけ繰り返してください。</b>商材ごとにカードが下に追加されていきます。すべて入力し終えたら、一番下の「できあがった日報」をコピーして送信してください。日付は今日の日付が自動で入りますが、必要なら書き換えられます。入力中の内容はこの端末に自動で保存され、ページを更新しても消えません（日付が変わると自動で消去されます）。</p>
+    <p class="lead">架電した商材を選んでコール数・コンタクト数・契約数を入力するだけで、Pt数と合計Ptが自動で計算されます。<b>その日に複数の商材に架電した場合は、下の「架電した商材を追加」で商材を選んで「追加」を押す操作を、架電した商材の数だけ繰り返してください。</b>商材ごとにカードが下に追加されていきます。すべて入力し終えたら、一番下の「できあがった日報」をコピーして送信してください。日付は今日の日付が自動で入りますが、必要なら書き換えられます。入力中の内容はこの端末に自動で保存され、ページを更新しても消えません（日付が変わると自動で消去されます）。下の「一時保存する」を押すと、その時点の内容をすぐに保存できます。</p>
 
     <div class="draft-banner" id="b-draft-banner" hidden>
       <span>前回入力していた日報の下書きを復元しました。別の方が続けて入力する場合は「入力内容をリセット」からクリアしてください。</span>
@@ -743,7 +761,9 @@ Pt数：4
         OP名は「かけ先リスト」に記載されている表記のとおりに記入してください。表記がバラバラになると、集計のときにどなたの日報か判断できなくなってしまいます。
         <div style="margin-top:8px;"><a href="https://docs.google.com/spreadsheets/d/1SmQ3f0B8jvRAH9ZI7TJWioHCg6fUX-sl3uFSPtbca3U/edit?gid=434128647#gid=434128647" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;">かけ先リストを開く</a></div>
       </div>
-      <div style="margin-top:10px;text-align:right;">
+      <div style="margin-top:10px;display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap;">
+        <span class="save-status" id="b-save-status" aria-live="polite"></span>
+        <button type="button" id="b-save-now" class="save-now-btn">一時保存する</button>
         <button type="button" id="b-reset" class="date-today-btn reset-btn">入力内容をリセット（別の方が使う場合など）</button>
       </div>
     </div>
@@ -1122,6 +1142,8 @@ OP名：（あなたの氏名）
     var draftBannerEl=document.getElementById('b-draft-banner');
     var draftDismissBtn=document.getElementById('b-draft-dismiss');
     var resetBtn=document.getElementById('b-reset');
+    var saveNowBtn=document.getElementById('b-save-now');
+    var saveStatusEl=document.getElementById('b-save-status');
 
     if(!opNameEl){ return; } // builder markup not present in this build
 
@@ -1131,6 +1153,7 @@ OP名：（あなたの氏名）
     // ---- draft save/restore (localStorage, cleared when the calendar date changes) ----
     var DRAFT_KEY='nippouBuilderDraft_v1';
     var saveDraftTimer=null;
+    var saveStatusTimer=null;
 
     function todayKey(){
       var d=new Date();
@@ -1397,6 +1420,14 @@ OP名：（あなたの氏名）
       updateOutput();
     });
 
+    saveNowBtn.addEventListener('click', function(){
+      if(saveDraftTimer){ clearTimeout(saveDraftTimer); saveDraftTimer=null; }
+      saveDraftNow();
+      if(saveStatusTimer) clearTimeout(saveStatusTimer);
+      saveStatusEl.textContent='保存しました';
+      saveStatusTimer=setTimeout(function(){ saveStatusEl.textContent=''; }, 2500);
+    });
+
     resetBtn.addEventListener('click', function(){
       clearDraft();
       opNameEl.value='';
@@ -1406,6 +1437,8 @@ OP名：（あなたの氏名）
       blocks=[];
       blockSeq=0;
       draftBannerEl.hidden=true;
+      if(saveStatusTimer){ clearTimeout(saveStatusTimer); saveStatusTimer=null; }
+      saveStatusEl.textContent='';
       updateGateState();
       renderBlocks();
     });
@@ -1445,7 +1478,5 @@ OP名：（あなたの氏名）
   })();
 })();
 </script>
-
-
 </body>
 </html>
