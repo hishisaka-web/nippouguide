@@ -564,6 +564,39 @@
     font-size:13px;
     margin:10px 0 0;
   }
+  .draft-banner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    background:var(--accent-soft);
+    border:1px solid var(--accent);
+    border-radius:12px;
+    padding:12px 16px;
+    font-size:13.5px;
+    line-height:1.5;
+    color:var(--ink);
+    margin-bottom:14px;
+  }
+  .draft-banner[hidden]{display:none;}
+  .draft-banner-btn{
+    flex:0 0 auto;
+    background:none;
+    border:1px solid var(--accent);
+    border-radius:8px;
+    color:var(--accent);
+    font-size:12.5px;
+    font-weight:700;
+    padding:6px 10px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .draft-banner-btn:hover{background:var(--accent);color:var(--accent-ink);}
+  .reset-btn{
+    color:var(--ink-soft);
+    text-decoration:underline;
+  }
+  .reset-btn:hover{color:var(--warn-ink);}
   .product-actions{
     display:none;
     gap:8px;
@@ -588,7 +621,6 @@
   }
   .confirm-delete.open{display:flex;}
 </style>
-
 
 </head>
 <body>
@@ -686,7 +718,12 @@ Pt数：4
       <span class="step-no">2</span>
       <h2 class="section-title">日報を自動で作成する</h2>
     </div>
-    <p class="lead">架電した商材を選んでコール数・コンタクト数・契約数を入力するだけで、Pt数と合計Ptが自動で計算されます。<b>その日に複数の商材に架電した場合は、下の「架電した商材を追加」で商材を選んで「追加」を押す操作を、架電した商材の数だけ繰り返してください。</b>商材ごとにカードが下に追加されていきます。すべて入力し終えたら、一番下の「できあがった日報」をコピーして送信してください。日付は今日の日付が自動で入りますが、必要なら書き換えられます。</p>
+    <p class="lead">架電した商材を選んでコール数・コンタクト数・契約数を入力するだけで、Pt数と合計Ptが自動で計算されます。<b>その日に複数の商材に架電した場合は、下の「架電した商材を追加」で商材を選んで「追加」を押す操作を、架電した商材の数だけ繰り返してください。</b>商材ごとにカードが下に追加されていきます。すべて入力し終えたら、一番下の「できあがった日報」をコピーして送信してください。日付は今日の日付が自動で入りますが、必要なら書き換えられます。入力中の内容はこの端末に自動で保存され、ページを更新しても消えません（日付が変わると自動で消去されます）。</p>
+
+    <div class="draft-banner" id="b-draft-banner" hidden>
+      <span>前回入力していた日報の下書きを復元しました。別の方が続けて入力する場合は「入力内容をリセット」からクリアしてください。</span>
+      <button type="button" class="draft-banner-btn" id="b-draft-dismiss">閉じる</button>
+    </div>
 
     <div class="card">
       <div class="card-label">OP名・日付</div>
@@ -705,6 +742,9 @@ Pt数：4
         <b>OP名の書き方について</b><br>
         OP名は「かけ先リスト」に記載されている表記のとおりに記入してください。表記がバラバラになると、集計のときにどなたの日報か判断できなくなってしまいます。
         <div style="margin-top:8px;"><a href="https://docs.google.com/spreadsheets/d/1SmQ3f0B8jvRAH9ZI7TJWioHCg6fUX-sl3uFSPtbca3U/edit?gid=434128647#gid=434128647" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;">かけ先リストを開く</a></div>
+      </div>
+      <div style="margin-top:10px;text-align:right;">
+        <button type="button" id="b-reset" class="date-today-btn reset-btn">入力内容をリセット（別の方が使う場合など）</button>
       </div>
     </div>
 
@@ -1079,11 +1119,64 @@ OP名：（あなたの氏名）
     var backyardGateEl=document.getElementById('b-backyard-gate');
     var productGateEl=document.getElementById('b-product-gate');
     var productHintEl=document.getElementById('b-product-hint');
+    var draftBannerEl=document.getElementById('b-draft-banner');
+    var draftDismissBtn=document.getElementById('b-draft-dismiss');
+    var resetBtn=document.getElementById('b-reset');
 
     if(!opNameEl){ return; } // builder markup not present in this build
 
     var blocks=[];
     var blockSeq=0;
+
+    // ---- draft save/restore (localStorage, cleared when the calendar date changes) ----
+    var DRAFT_KEY='nippouBuilderDraft_v1';
+    var saveDraftTimer=null;
+
+    function todayKey(){
+      var d=new Date();
+      return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+    }
+
+    function saveDraftNow(){
+      try{
+        var hasContent=(opNameEl.value.trim().length>0) || blocks.length>0 || backyardEl.checked;
+        if(!hasContent){
+          localStorage.removeItem(DRAFT_KEY);
+          return;
+        }
+        localStorage.setItem(DRAFT_KEY, JSON.stringify({
+          v:1,
+          savedDate:todayKey(),
+          opName:opNameEl.value,
+          date:dateEl.value,
+          backyard:backyardEl.checked,
+          blocks:blocks,
+          blockSeq:blockSeq
+        }));
+      }catch(err){ /* localStorage unavailable or full: draft save is best-effort only */ }
+    }
+
+    function scheduleSaveDraft(){
+      if(saveDraftTimer) clearTimeout(saveDraftTimer);
+      saveDraftTimer=setTimeout(saveDraftNow, 400);
+    }
+
+    function clearDraft(){
+      if(saveDraftTimer){ clearTimeout(saveDraftTimer); saveDraftTimer=null; }
+      try{ localStorage.removeItem(DRAFT_KEY); }catch(err){ /* ignore */ }
+    }
+
+    function loadDraft(){
+      try{
+        var raw=localStorage.getItem(DRAFT_KEY);
+        if(!raw) return null;
+        var parsed=JSON.parse(raw);
+        if(!parsed || typeof parsed!=='object') return null;
+        return parsed;
+      }catch(err){
+        return null;
+      }
+    }
 
     function hasOpName(){
       return opNameEl.value.trim().length>0;
@@ -1254,6 +1347,7 @@ OP名：（あなたの氏名）
 
       outputEl.textContent=text;
       outputCard.hidden=!(isBackyard || blocks.length>0);
+      scheduleSaveDraft();
     }
 
     addBtn.addEventListener('click', function(){
@@ -1303,9 +1397,51 @@ OP名：（あなたの氏名）
       updateOutput();
     });
 
-    dateEl.value=formatToday();
-    updateGateState();
-    updateOutput();
+    resetBtn.addEventListener('click', function(){
+      clearDraft();
+      opNameEl.value='';
+      dateEl.value=formatToday();
+      backyardEl.checked=false;
+      pickerWrap.hidden=false;
+      blocks=[];
+      blockSeq=0;
+      draftBannerEl.hidden=true;
+      updateGateState();
+      renderBlocks();
+    });
+
+    if(draftDismissBtn){
+      draftDismissBtn.addEventListener('click', function(){
+        draftBannerEl.hidden=true;
+      });
+    }
+
+    (function initDraft(){
+      var draft=loadDraft();
+      if(draft && draft.savedDate===todayKey()){
+        opNameEl.value=draft.opName||'';
+        dateEl.value=draft.date||formatToday();
+        blockSeq=(typeof draft.blockSeq==='number')?draft.blockSeq:0;
+        blocks=Array.isArray(draft.blocks)?draft.blocks:[];
+        updateGateState();
+        if(draft.backyard && hasOpName()){
+          backyardEl.checked=true;
+          pickerWrap.hidden=true;
+        }else{
+          pickerWrap.hidden=false;
+        }
+        var hasContent=hasOpName() || blocks.length>0 || backyardEl.checked;
+        if(hasContent){
+          draftBannerEl.hidden=false;
+        }
+        renderBlocks(); // also calls updateOutput()
+      }else{
+        if(draft){ clearDraft(); } // 日付が変わっていたら古い下書きは破棄する
+        dateEl.value=formatToday();
+        updateGateState();
+        updateOutput();
+      }
+    })();
   })();
 })();
 </script>
